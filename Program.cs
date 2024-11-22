@@ -8,48 +8,21 @@ namespace tp_grafos
         static void Main(string[] args)
         {
             OpcoesMenu opcaoUsuario;
+            int opcaoAux;
 
             do
             {
                 Console.WriteLine(exibeMenu());
-                opcaoUsuario = (OpcoesMenu) int.Parse(Console.ReadLine());
+                opcaoAux = lerNumero();
+                opcaoUsuario = (OpcoesMenu)opcaoAux - 1;
                 processarMenu(opcaoUsuario);
             } while (opcaoUsuario != OpcoesMenu.SAIR);
         }
 
-
-        public static String exibeMenu()
-        {
-            StringBuilder menu = new StringBuilder();
-            menu.AppendLine("\n=====Parte 1======");
-            int index = 1;
-            menu.AppendLine($"{index++}. Criar grafo e imprimi-lo");
-            menu.AppendLine("\n=====Parte 2======");
-            menu.AppendLine($"{index++}. Ler grafo no formato DIMACS");
-            menu.AppendLine($"{index++}. Imprimir Arestas Adjacentes a uma aresta");
-            menu.AppendLine($"{index++}. Imprimir Vértices Adjacentes a um vértice");
-            menu.AppendLine($"{index++}. Imprimir Arestas Incidentes a um vértice");
-            menu.AppendLine($"{index++}. Imprimir Vértices Incidentes a uma aresta");
-            menu.AppendLine($"{index++}. Verificar se dois vértices são adjacentes");
-            menu.AppendLine($"{index++}. Substitituir peso de uma aresta");
-            menu.AppendLine($"{index++}. Trocar dois vértices");
-            menu.AppendLine($"{index++}. Executar busca em largura");
-            menu.AppendLine($"{index++}. Executar busca em profundidade");
-            menu.AppendLine($"{index++}. Executar algoritmo de Dikstra");
-            menu.AppendLine($"{index++}. Executar algoritmo de Floyd Warshall");
-
-            menu.AppendLine("\n=====Parte 3======");
-            menu.AppendLine($"{index++}. Desafio - Ferrovias");
-
-            menu.AppendLine($"\n{index++}. Sair");
-
-            menu.AppendLine("\nEscolha uma opção");
-
-            return menu.ToString();
-        }
-
         public static void processarMenu(OpcoesMenu opcaoUsuario)
         {
+            Console.Clear();
+            Console.WriteLine(cabecalho());
             switch (opcaoUsuario)
             {
                 case OpcoesMenu.CRIAR_GRAFO:
@@ -87,8 +60,67 @@ namespace tp_grafos
                     Console.WriteLine("Opção inválida");
                     break;
             }
-          
+
+            if (opcaoUsuario != OpcoesMenu.SAIR)
+                espera();
         }
+
+        public static void espera()
+        {
+            Console.WriteLine("Digite Enter para continuar");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public static int lerNumero()
+        {
+            int opcaoAux;
+            bool convertido = false;
+            do
+            {
+                convertido = int.TryParse(Console.ReadLine(), out opcaoAux);
+                if (!convertido)
+                    Console.WriteLine("Não é um número. Digite novamente");
+            } while (!convertido);
+
+            return opcaoAux;
+        }
+
+
+        public static String exibeMenu()
+        {
+            StringBuilder menu = new StringBuilder();
+            menu.AppendLine(cabecalho());
+            int index = 1;
+            menu.AppendLine($"{index++}. Criar grafo e imprimi-lo");
+            menu.AppendLine($"{index++}. Ler grafo no formato DIMACS");
+            menu.AppendLine($"{index++}. Imprimir Arestas Adjacentes a uma aresta");
+            menu.AppendLine($"{index++}. Imprimir Vértices Adjacentes a um vértice");
+            menu.AppendLine($"{index++}. Imprimir Arestas Incidentes a um vértice");
+            menu.AppendLine($"{index++}. Imprimir Vértices Incidentes a uma aresta");
+            menu.AppendLine($"{index++}. Verificar se dois vértices são adjacentes");
+            menu.AppendLine($"{index++}. Substitituir peso de uma aresta");
+            menu.AppendLine($"{index++}. Trocar dois vértices");
+            menu.AppendLine($"{index++}. Executar busca em largura");
+            menu.AppendLine($"{index++}. Executar busca em profundidade");
+            menu.AppendLine($"{index++}. Executar algoritmo de Dijkstra");
+            menu.AppendLine($"{index++}. Executar algoritmo de Floyd Warshall");
+            menu.AppendLine($"{index++}. Desafio - Ferrovias");
+            menu.AppendLine($"\n{index++}. Sair");
+            menu.AppendLine("\nEscolha uma opção");
+
+            return menu.ToString();
+        }
+
+        public static string cabecalho()
+        {
+            StringBuilder cabecalho = new StringBuilder();
+            cabecalho.AppendLine("-----------------------------------------");
+            cabecalho.AppendLine("              Grupo 01");
+            cabecalho.AppendLine("-----------------------------------------");
+            return cabecalho.ToString();
+        }
+
     }
 
 
