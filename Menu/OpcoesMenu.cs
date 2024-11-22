@@ -9,7 +9,6 @@ namespace tp_grafos.Menu
     public enum OpcoesMenu
     {
       CRIAR_GRAFO,
-      IMPRIMIR_GRAFO,
       LER_GRAFO_DIMACS,
       IMPRIMIR_ARESTAS_ADJACENTES,
       IMPRIMIR_VERTICES_ADJACENTES,
