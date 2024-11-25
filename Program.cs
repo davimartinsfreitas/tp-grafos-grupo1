@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using tp_grafos.Menu;
+using tp_grafos.RepresentacaoGrafos;
 
 namespace tp_grafos
 {
@@ -28,6 +29,7 @@ namespace tp_grafos
                 case OpcoesMenu.CRIAR_GRAFO:
                     break;
                 case OpcoesMenu.LER_GRAFO_DIMACS:
+                    OperacoesGrafos.lerGrafoFormatoDimacs();
                     break;
                 case OpcoesMenu.IMPRIMIR_ARESTAS_ADJACENTES:
                     break;

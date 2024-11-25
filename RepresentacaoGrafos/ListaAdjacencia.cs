@@ -8,8 +8,8 @@ namespace tp_grafos.RepresentacaoGrafos
 {
     internal class ListaAdjacencia
     {
-          private Dictionary<int, List<(int, int)>> lista;
- 
+          private Dictionary<int, List<(int, int)>> lista;   
+
         public ListaAdjacencia(int vertices)
         {
             lista = new Dictionary<int, List<(int, int)>>();
