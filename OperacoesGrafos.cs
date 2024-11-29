@@ -9,6 +9,7 @@ namespace tp_grafos.RepresentacaoGrafos
 {
     internal class OperacoesGrafos
     {
+        private static MatrizAdjacencia grafoAuxiliar;
         public static void CriarEImprimirGrafo()
         {
             Console.WriteLine("Digite o número de vértices:");
@@ -58,13 +59,40 @@ namespace tp_grafos.RepresentacaoGrafos
             }
         }
     
-        public static void lerGrafoFormatoDimacs(){
-            LeitorDimacs leitorDimacs = new LeitorDimacs(Path.Combine(Directory.GetCurrentDirectory(), "example_graph.txt"));
-
-            MatrizAdjacencia grafo = leitorDimacs.LerDados();
-
-            grafo.Imprimir();
+        public static void LerGrafoFormatoDimacs(){
+            LeitorDimacs leitorDimacs = new LeitorDimacs();
+            string arquivo = Path.Combine(Directory.GetCurrentDirectory(), "example_graph.txt");
+            grafoAuxiliar = leitorDimacs.ParseToMatrizAdjacencia(arquivo);
+            if(grafoAuxiliar != null)
+            {
+                grafoAuxiliar.Imprimir();
+            }
         }
+
+        public static string ImprimirArestasAdjacentes(){
+            if(grafoAuxiliar == null)
+            {
+                LerGrafoFormatoDimacs();
+            }
+
+            Console.WriteLine("\nInforme a aresta da qual deseja saber as arestas adjacente, no formato a seguir:");
+            Console.WriteLine("Informe o vértice de origem da aresta");
+            int origem = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Informe o vértice de origem da aresta");
+            int destino = Convert.ToInt32(Console.ReadLine());
+
+            string retorno = "";
+            try{
+                retorno = grafoAuxiliar.ObterArestasAdjacentes(origem, destino);
+            }catch(ArgumentException ex)
+            {
+                retorno = ex.Message;
+            }
+            
+            return retorno;
+        }
+
+
     }
 }
  

@@ -29,9 +29,10 @@ namespace tp_grafos
                 case OpcoesMenu.CRIAR_GRAFO:
                     break;
                 case OpcoesMenu.LER_GRAFO_DIMACS:
-                    OperacoesGrafos.lerGrafoFormatoDimacs();
+                    OperacoesGrafos.LerGrafoFormatoDimacs();
                     break;
                 case OpcoesMenu.IMPRIMIR_ARESTAS_ADJACENTES:
+                    Console.WriteLine(OperacoesGrafos.ImprimirArestasAdjacentes());
                     break;
                 case OpcoesMenu.IMPRIMIR_VERTICES_ADJACENTES:
                     break;
