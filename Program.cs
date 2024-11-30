@@ -27,6 +27,7 @@ namespace tp_grafos
             switch (opcaoUsuario)
             {
                 case OpcoesMenu.CRIAR_GRAFO:
+                    OperacoesGrafos.CriarEImprimirGrafo();
                     break;
                 case OpcoesMenu.LER_GRAFO_DIMACS:
                     OperacoesGrafos.LerGrafoFormatoDimacs();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace tp_grafos.RepresentacaoGrafos
 {
-    internal class MatrizAdjacencia
+    internal class MatrizAdjacencia : IRepresentacaoGrafos
     {
         private int[,] matriz;
 
@@ -67,7 +67,7 @@ namespace tp_grafos.RepresentacaoGrafos
             return arestasAdjacentes;
         }
 
-        private bool IsArestaExistente(int origem, int destino)
+        public bool IsArestaExistente(int origem, int destino)
         {
             return origem >= 0 && origem < matriz.GetLength(0)
                 && destino >= 0 && destino < matriz.GetLength(1)
