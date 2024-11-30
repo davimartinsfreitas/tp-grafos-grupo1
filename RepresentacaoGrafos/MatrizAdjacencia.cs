@@ -18,7 +18,6 @@ namespace tp_grafos.RepresentacaoGrafos
         public void AdicionarAresta(int origem, int destino, int peso)
         {
             matriz[origem, destino] = peso;
-            matriz[destino, origem] = peso; // Caso seja um grafo não direcionado
         }
 
         public void Imprimir()
