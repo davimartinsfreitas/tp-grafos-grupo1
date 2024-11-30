@@ -9,7 +9,8 @@ namespace tp_grafos.RepresentacaoGrafos
 {
     internal class OperacoesGrafos
     {
-        private static MatrizAdjacencia grafoAuxiliar;
+        private static IRepresentacaoGrafos grafo;
+        
         public static void CriarEImprimirGrafo()
         {
             Console.WriteLine("Digite o número de vértices:");
@@ -62,15 +63,17 @@ namespace tp_grafos.RepresentacaoGrafos
         public static void LerGrafoFormatoDimacs(){
             LeitorDimacs leitorDimacs = new LeitorDimacs();
             string arquivo = Path.Combine(Directory.GetCurrentDirectory(), "example_graph.txt");
-            grafoAuxiliar = leitorDimacs.ParseToMatrizAdjacencia(arquivo);
-            if(grafoAuxiliar != null)
+            
+            grafo = leitorDimacs.ParseToRepresentacaoGrafo(arquivo);
+            
+            if(grafo != null)
             {
-                grafoAuxiliar.Imprimir();
+                grafo.Imprimir();
             }
         }
 
         public static string ImprimirArestasAdjacentes(){
-            if(grafoAuxiliar == null)
+            if(grafo == null)
             {
                 LerGrafoFormatoDimacs();
             }
@@ -83,7 +86,7 @@ namespace tp_grafos.RepresentacaoGrafos
 
             string retorno = "";
             try{
-                retorno = grafoAuxiliar.ObterArestasAdjacentes(origem, destino);
+                retorno = grafo.ObterArestasAdjacentes(origem, destino);
             }catch(ArgumentException ex)
             {
                 retorno = ex.Message;
@@ -91,8 +94,6 @@ namespace tp_grafos.RepresentacaoGrafos
             
             return retorno;
         }
-
-
     }
 }
  
