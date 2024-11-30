@@ -22,7 +22,6 @@ namespace tp_grafos.RepresentacaoGrafos
         public void AdicionarAresta(int origem, int destino, int peso)
         {
             lista[origem].Add((destino, peso));
-            lista[destino].Add((origem, peso)); // Caso seja um grafo não direcionado
         }
  
         public void Imprimir()
