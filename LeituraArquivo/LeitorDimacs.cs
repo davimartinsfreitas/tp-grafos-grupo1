@@ -40,7 +40,7 @@ namespace tp_grafos.LeituraArquivo
 
                         if(Math.Round(densidade) == 1){
                             origem--;
-                            destino--;
+                            destino--;        
                         }
 
                         representacaoGrafos.AdicionarAresta(origem, destino, peso);

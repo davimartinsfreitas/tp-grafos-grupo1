@@ -51,14 +51,12 @@ namespace tp_grafos.RepresentacaoGrafos
             {
                 foreach(var elemento in adjacencias.Value)
                 {
-                    bool sucessorComum = adjacencias.Key == destino;
-                    bool predecessorComum = adjacencias.Key == origem && elemento.Item1 != destino;
-                    bool sucessorOrigemOuDestino = elemento.Item1 == destino || elemento.Item1 == origem;
+                    bool mesmoPredecessor = adjacencias.Key == destino || (adjacencias.Key == origem && elemento.Item1 != destino);
+                    bool mesmoSucessor = adjacencias.Key != origem && (elemento.Item1 == origem || elemento.Item1 == destino);
                     
-                    if(adjacencias.Key == destino || (adjacencias.Key == origem && elemento.Item1 != destino)
-                        || (elemento.Item1 == destino && adjacencias.Key != origem) || elemento.Item1 == origem)
+                    if(mesmoPredecessor || mesmoSucessor)
                     {
-                        arestasAdjacentes += "(" + adjacencias.Key + "," + elemento.Item1 + ")\n"; 
+                        arestasAdjacentes += "(" + adjacencias.Key + "," + elemento.Item1 + "," + elemento.Item2 + ")\n"; 
                     }
                 }
             }
@@ -69,7 +67,38 @@ namespace tp_grafos.RepresentacaoGrafos
         public bool IsArestaExistente(int origem, int destino)
         {
             return lista.ContainsKey(origem) && lista[origem].Find(a => a.Item1 == destino) != (0, 0);
-        }        
+        }
+
+        public Dictionary<string, StringBuilder> ObterVerticesAdjacentes(int vertice)
+        {
+            if(!lista.ContainsKey(vertice)){
+                throw new ArgumentException("O vértice informado não existe no grafo!");
+            }
+
+            Dictionary<string, StringBuilder> verticesAdjacentes = new Dictionary<string, StringBuilder>();
+            
+            StringBuilder sucessores = new StringBuilder("Sucessores:\n");
+            StringBuilder predecessores = new StringBuilder("Predecessores:\n");
+
+            lista[vertice].ForEach((vertice) => sucessores.AppendLine(vertice.Item1.ToString()));
+
+            foreach(KeyValuePair<int, List<(int, int)>> adjacencias in lista)
+            {
+                foreach(var elemento in adjacencias.Value)
+                {
+                    if(adjacencias.Key != vertice)
+                    {
+                        if(elemento.Item1 == vertice)
+                        {
+                            predecessores.AppendLine(adjacencias.Key.ToString());
+                        }
+                    }
+                }
+            }   
+            verticesAdjacentes["sucessores"] = sucessores;
+            verticesAdjacentes["predecessores"] = predecessores;
+            return verticesAdjacentes;        
+        }
     }
 }
     

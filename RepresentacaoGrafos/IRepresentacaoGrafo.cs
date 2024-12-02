@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO.Compression;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace tp_grafos.RepresentacaoGrafos
 {
@@ -17,6 +11,8 @@ namespace tp_grafos.RepresentacaoGrafos
         public abstract string ObterArestasAdjacentes(int origem, int destino);
 
         public abstract bool IsArestaExistente(int origem, int destino);
+
+        public abstract Dictionary<string, StringBuilder> ObterVerticesAdjacentes(int vertice);
     }
 }
     
