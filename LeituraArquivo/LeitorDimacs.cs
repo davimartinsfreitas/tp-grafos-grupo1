@@ -5,9 +5,9 @@ namespace tp_grafos.LeituraArquivo
 {
     internal class LeitorDimacs
     {
-        public MatrizAdjacencia ParseToMatrizAdjacencia(string caminhoArquivo)
+        public IRepresentacaoGrafos ParseToRepresentacaoGrafo(string caminhoArquivo)
         {
-            MatrizAdjacencia matrizAdjacencia;
+            IRepresentacaoGrafos representacaoGrafos;
             try
             {
                 StreamReader arq = new StreamReader(caminhoArquivo, Encoding.UTF8);
@@ -20,7 +20,12 @@ namespace tp_grafos.LeituraArquivo
 
                 int numArestas = Convert.ToInt32(atributosGrafo[1]);
 
-                matrizAdjacencia = new MatrizAdjacencia(numVertices);
+                double densidade = (double) numArestas/(numVertices*(numVertices-1));
+                if(Math.Round(densidade) == 1){
+                    representacaoGrafos = new MatrizAdjacencia(numVertices);
+                }else{
+                    representacaoGrafos = new ListaAdjacencia(numVertices);
+                }
 
                 for (int i = 0; i < numArestas; i++)
                 {
@@ -29,11 +34,16 @@ namespace tp_grafos.LeituraArquivo
                     {
                         string[] atributosAresta = configAresta.Split(' ');
 
-                        int origem = Convert.ToInt32(atributosAresta[0]) - 1;
-                        int destino = Convert.ToInt32(atributosAresta[1]) - 1;
+                        int origem = Convert.ToInt32(atributosAresta[0]);
+                        int destino = Convert.ToInt32(atributosAresta[1]);
                         int peso = Convert.ToInt32(atributosAresta[2]);
 
-                        matrizAdjacencia.AdicionarAresta(origem, destino, peso);
+                        if(Math.Round(densidade) == 1){
+                            origem--;
+                            destino--;        
+                        }
+
+                        representacaoGrafos.AdicionarAresta(origem, destino, peso);
                     }
                 }
             }
@@ -42,7 +52,7 @@ namespace tp_grafos.LeituraArquivo
                 throw new Exception("Erro ao ler o arquivo: " + caminhoArquivo);
             }
 
-            return matrizAdjacencia;
-        }
+            return representacaoGrafos;
+        }    
     }
 }
