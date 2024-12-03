@@ -104,8 +104,8 @@ namespace tp_grafos.RepresentacaoGrafos
                     predecessores.AppendLine((i+1).ToString());
                 }
             }
-            adjacencias["sucessores"] = sucessores;
-            adjacencias["predecessores"] = predecessores;
+            adjacencias.Add("sucessores", sucessores);
+            adjacencias.Add("predecessores", predecessores);
             return adjacencias;
         }
     }

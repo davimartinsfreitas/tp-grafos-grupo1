@@ -78,25 +78,17 @@ namespace tp_grafos.RepresentacaoGrafos
             Dictionary<string, StringBuilder> verticesAdjacentes = new Dictionary<string, StringBuilder>();
             
             StringBuilder sucessores = new StringBuilder("Sucessores:\n");
+            lista[vertice].ForEach((aresta) => sucessores.AppendLine(aresta.Item1.ToString()));
+
             StringBuilder predecessores = new StringBuilder("Predecessores:\n");
-
-            lista[vertice].ForEach((vertice) => sucessores.AppendLine(vertice.Item1.ToString()));
-
             foreach(KeyValuePair<int, List<(int, int)>> adjacencias in lista)
             {
-                foreach(var elemento in adjacencias.Value)
-                {
-                    if(adjacencias.Key != vertice)
-                    {
-                        if(elemento.Item1 == vertice)
-                        {
-                            predecessores.AppendLine(adjacencias.Key.ToString());
-                        }
-                    }
-                }
-            }   
-            verticesAdjacentes["sucessores"] = sucessores;
-            verticesAdjacentes["predecessores"] = predecessores;
+                if(adjacencias.Value.Any((aresta) => aresta.Item1 == vertice))
+                    predecessores.AppendLine(adjacencias.Key.ToString());
+            }
+
+            verticesAdjacentes.Add("sucessores", sucessores);
+            verticesAdjacentes.Add("predecessores", predecessores);
             return verticesAdjacentes;        
         }
     }
