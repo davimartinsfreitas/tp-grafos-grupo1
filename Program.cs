@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using tp_grafos.Menu;
 using tp_grafos.RepresentacaoGrafos;
 
 namespace tp_grafos
@@ -40,10 +39,16 @@ namespace tp_grafos
                     Console.WriteLine(OperacoesGrafos.ImprimirVerticesAdjacentes());
                     break;
                 case OpcoesMenu.IMPRIMIR_ARESTAS_INCIDENTES_A_VERTICE:
+                    Console.WriteLine(OperacoesGrafos.ImprimirArestasIncidentes());
                     break;
                 case OpcoesMenu.IMPRIMIR_VERTICES_INCIDENTES_A_ARESTA:
+                    Console.WriteLine(OperacoesGrafos.ImprimirVerticesIncidentesEmAresta());
+                    break;
+                case OpcoesMenu.IMPRIMIR_GRAU_VERTICE:
+                    Console.WriteLine(OperacoesGrafos.ImprimirGrauVertice());
                     break;
                 case OpcoesMenu.VERIFICAR_VERTICES_ADJACENTES:
+                    Console.WriteLine(OperacoesGrafos.VerificarVerticesAdjacentes());
                     break;
                 case OpcoesMenu.SUBSTITUIR_PESO_ARESTA:
                     break;
@@ -104,6 +109,7 @@ namespace tp_grafos
             menu.AppendLine($"{index++}. Imprimir Vértices Adjacentes a um vértice");
             menu.AppendLine($"{index++}. Imprimir Arestas Incidentes a um vértice");
             menu.AppendLine($"{index++}. Imprimir Vértices Incidentes a uma aresta");
+            menu.AppendLine($"{index++}. Imprimir grau de vértice");
             menu.AppendLine($"{index++}. Verificar se dois vértices são adjacentes");
             menu.AppendLine($"{index++}. Substitituir peso de uma aresta");
             menu.AppendLine($"{index++}. Trocar dois vértices");
