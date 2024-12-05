@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tp_grafos.Menu
+namespace tp_grafos
 {
     public enum OpcoesMenu
     {
@@ -14,6 +14,7 @@ namespace tp_grafos.Menu
       IMPRIMIR_VERTICES_ADJACENTES,
       IMPRIMIR_ARESTAS_INCIDENTES_A_VERTICE,
       IMPRIMIR_VERTICES_INCIDENTES_A_ARESTA,
+      IMPRIMIR_GRAU_VERTICE,
       VERIFICAR_VERTICES_ADJACENTES,
       SUBSTITUIR_PESO_ARESTA,
       TROCAR_VERTICES,
