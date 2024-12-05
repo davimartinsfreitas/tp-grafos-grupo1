@@ -35,9 +35,7 @@ namespace tp_grafos.RepresentacaoGrafos
             }
         }
 
-        public string ObterArestasAdjacentes(int origem, int destino){
-            string arestasAdjacentes = "\nArestas Adjacentes a aresta (" + origem + "," + destino + "):\n";
-            
+        public string ObterArestasAdjacentes(int origem, int destino){            
             int tamanho = matriz.GetLength(0);
             int origemAux = origem-1;
             int destinoAux = destino-1;
@@ -45,6 +43,8 @@ namespace tp_grafos.RepresentacaoGrafos
             if(!IsArestaExistente(origemAux, destinoAux)){
                 throw new ArgumentException("A aresta informada não existe no grafo!");
             }
+
+            string arestasAdjacentes = "\nArestas Adjacentes a aresta (" + origem + "," + destino + "):\n";
             
             for (int i = 0; i < tamanho; i++)
             {
@@ -107,6 +107,108 @@ namespace tp_grafos.RepresentacaoGrafos
             adjacencias.Add("sucessores", sucessores);
             adjacencias.Add("predecessores", predecessores);
             return adjacencias;
+        }
+
+        public string ObterArestasIncidentes(int vertice)
+        {
+            int tamanho = matriz.GetLength(0);
+            int indiceVertice = vertice-1;
+
+            if(indiceVertice < 0 || indiceVertice >= tamanho){
+                throw new ArgumentException("O vértice informado não existe no grafo!");
+            }
+
+            StringBuilder arestasIncidentes = new StringBuilder();
+
+            for(int i = 0; i < tamanho; i++)
+            {
+                if(matriz[indiceVertice, i] > 0)
+                {
+                    string arestaFormatada = $"({vertice},{i+1},{matriz[indiceVertice, i]})\n";
+                    arestasIncidentes.AppendLine(arestaFormatada);
+                }
+                
+                if(matriz[i, indiceVertice] > 0)
+                {
+                    string arestaFormatada = $"({i+1},{vertice},{matriz[i, indiceVertice]})\n";
+                    arestasIncidentes.AppendLine(arestaFormatada);
+                }   
+            }
+            return arestasIncidentes.ToString();
+        }
+
+        /// TODO: criar label para aresta
+        public string ObterVerticesIncidentesAAresta(int origem, int destino)
+        {
+            int tamanho = matriz.GetLength(0);
+            int indiceOrigem = origem-1;
+            int indiceDestino = destino-1;
+
+            if(!IsArestaExistente(indiceOrigem, indiceDestino)){
+                throw new ArgumentException("A aresta informada não existe no grafo!");
+            }
+
+            string verticesIncidentes = "";
+
+            for(int i = 0; i < tamanho; i++)
+            {
+                for(int j = 0; j < tamanho; j++)
+                {
+                    if(i == indiceOrigem && j == indiceDestino && matriz[i, j] > 0)
+                    {
+                        verticesIncidentes += i+1+"\n";
+                        verticesIncidentes += j+1;
+                    }
+                }
+            }
+            return verticesIncidentes;
+        }
+
+        public bool VerificarVerticesAdjacentes(int origem, int destino)
+        {
+            int indiceOrigem = origem-1;
+            int indiceDestino = destino-1;
+            return IsArestaExistente(indiceOrigem, indiceDestino) || IsArestaExistente(indiceDestino, indiceOrigem);
+        }
+
+        public int ObterGrauEntradaVertice(int vertice)
+        {
+            int tamanho = matriz.GetLength(0);
+            int indiceVertice = vertice-1;
+
+            if(indiceVertice < 0 || indiceVertice >= tamanho){
+                throw new ArgumentException("O vértice informado não existe no grafo!");
+            }
+            
+            int grau = 0;
+
+            for(int i = 0; i < tamanho; i++)
+            {
+                if(matriz[i, indiceVertice] > 0){
+                    grau++;
+                }
+            }
+            return grau;
+        }
+
+        public int ObterGrauSaidaVertice(int vertice)
+        {
+            int tamanho = matriz.GetLength(0);
+            int indiceVertice = vertice-1;
+
+            if(indiceVertice < 0 || indiceVertice >= tamanho){
+                throw new ArgumentException("O vértice informado não existe no grafo!");
+            }
+            
+            int grau = 0;
+
+            for(int i = 0; i < tamanho; i++)
+            {
+                if(matriz[indiceVertice, i] > 0){
+                    grau++;
+                }
+            }
+            return grau;
         }
     }
 }

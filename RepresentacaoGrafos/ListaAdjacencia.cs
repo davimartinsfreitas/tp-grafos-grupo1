@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace tp_grafos.RepresentacaoGrafos
 {
@@ -90,6 +91,75 @@ namespace tp_grafos.RepresentacaoGrafos
             verticesAdjacentes.Add("sucessores", sucessores);
             verticesAdjacentes.Add("predecessores", predecessores);
             return verticesAdjacentes;        
+        }
+
+        public string ObterArestasIncidentes(int vertice)
+        {
+            if (!lista.ContainsKey(vertice))
+            {
+                throw new ArgumentException("O vértice informado não existe no grafo!");
+            }
+
+            StringBuilder arestasIncidentes = new StringBuilder();
+
+            foreach(KeyValuePair<int, List<(int, int)>> adjacencias in lista)
+            {
+                foreach(var aresta in  adjacencias.Value)
+                {
+                    if ( adjacencias.Key == vertice || (adjacencias.Key != vertice && aresta.Item1 == vertice) )
+                    {
+                        string arestaFormatada = "(" + adjacencias.Key + "," + aresta.Item1 + "," + aresta.Item2 + ")";
+                        arestasIncidentes.AppendLine(arestaFormatada);
+                    }
+                }
+            }
+            return arestasIncidentes.ToString();
+        }
+
+        public string ObterVerticesIncidentesAAresta(int origem, int destino)
+        {
+            if(!IsArestaExistente(origem, destino)){
+                throw new ArgumentException("A aresta informada não existe no grafo!");
+            }
+            string verticesIncidentes = lista.Keys.First((vertice) => vertice == origem).ToString();
+            verticesIncidentes += "\n"+lista[origem].First((aresta) => aresta.Item1 == destino).Item1;
+
+            return verticesIncidentes;
+        }
+
+        public bool VerificarVerticesAdjacentes(int origem, int destino)
+        {
+            return IsArestaExistente(origem, destino) || IsArestaExistente(destino, origem);
+        }
+
+        public int ObterGrauEntradaVertice(int vertice)
+        {
+            if(!lista.ContainsKey(vertice)){
+                throw new ArgumentException("O vértice informado não existe no grafo!");
+            }
+
+            int grau = 0;
+
+            foreach(KeyValuePair<int, List<(int, int)>> adjacencias in lista)
+            {
+                if(adjacencias.Value.Any((aresta) => aresta.Item1 == vertice && adjacencias.Key != vertice))
+                {
+                    grau++;
+                }
+            }    
+
+            return grau;
+        }
+
+        public int ObterGrauSaidaVertice(int vertice)
+        {
+            if(!lista.ContainsKey(vertice)){
+                throw new ArgumentException("O vértice informado não existe no grafo!");
+            }
+        
+            int grau = 0;
+            lista[vertice].ForEach((aresta) => grau++);
+            return grau;
         }
     }
 }
