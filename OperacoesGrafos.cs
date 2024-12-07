@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using tp_grafos.LeituraArquivo;
+using tp_grafos.RepresentacaoGrafos.Algoritmos;
 
 namespace tp_grafos.RepresentacaoGrafos
 {
@@ -42,7 +43,7 @@ namespace tp_grafos.RepresentacaoGrafos
                 string[] entrada = Console.ReadLine().Split(' ');
                 int origem = Convert.ToInt32(entrada[0]);
                 int destino = Convert.ToInt32(entrada[1]);
-                int peso = Convert.ToInt32(entrada[2]);
+                double peso = Convert.ToDouble(entrada[2]);
 
                 //Tratar no caso de matriz de adjacência para não passar dos limites da matriz
                 if (densidade > 0.5){
@@ -55,6 +56,22 @@ namespace tp_grafos.RepresentacaoGrafos
 
             // Imprime o grafo na representação escolhida
             grafo.Imprimir();
+        }
+
+        public static string ExecutarDijkstra()
+        {
+            if (grafo == null) LerGrafoFormatoDimacs();
+            ImprimirGrafo();
+
+            Console.WriteLine("Digite o nó que deseja iniciar a interação: ");
+            int raiz = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Digite o destino que deseja ter a interação: ");
+            int destino = Convert.ToInt32(Console.ReadLine());
+
+            Dijkstra dijkstra = new Dijkstra(raiz, destino, grafo);
+            dijkstra.ExecultarMetodo();
+            return dijkstra.imprimir(); 
         }
 
         public static void ImprimirGrafo()

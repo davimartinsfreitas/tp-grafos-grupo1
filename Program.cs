@@ -59,6 +59,7 @@ namespace tp_grafos
                 case OpcoesMenu.BUSCA_EM_PROFUNDIDADE:
                     break;
                 case OpcoesMenu.CAMINHO_MINIMO_DIJKSTRA:
+                    Console.WriteLine(OperacoesGrafos.ExecutarDijkstra());
                     break;
                 case OpcoesMenu.CAMINHO_MINIMO_FLOYD_WARSHALL:
                     break;

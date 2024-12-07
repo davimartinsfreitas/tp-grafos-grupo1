@@ -9,16 +9,26 @@ namespace tp_grafos.RepresentacaoGrafos
 {
     internal class MatrizAdjacencia : IRepresentacaoGrafos
     {
-        private int[,] matriz;
+        private double[,] matriz;
 
         public MatrizAdjacencia(int vertices)
         {
-            matriz = new int[vertices, vertices];
+            matriz = new double[vertices, vertices];
         }
 
-        public void AdicionarAresta(int origem, int destino, int peso)
+        public double obterPeso(int origem, int destino)
+        {
+            return matriz[origem, destino];
+        }
+
+        public void AdicionarAresta(int origem, int destino, double peso)
         {
             matriz[origem, destino] = peso;
+        }
+
+        public int QuantidadeDeVerices()
+        {
+          return matriz.GetLength(0);
         }
 
         public void Imprimir()
@@ -72,6 +82,7 @@ namespace tp_grafos.RepresentacaoGrafos
             return arestasAdjacentes;
         }
 
+       
         public bool IsArestaExistente(int origem, int destino)
         {
             return origem >= 0 && origem < matriz.GetLength(0)
