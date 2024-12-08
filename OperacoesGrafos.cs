@@ -334,5 +334,22 @@ namespace tp_grafos.RepresentacaoGrafos
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public static void ExecutarBuscaEmLargura()
+        {
+            try
+            {
+                ObterGrafo();
+                ImprimirGrafo();
+                Console.WriteLine("Digite o vértice inicial para a busca em largura:");
+                int inicioBFS = Convert.ToInt32(Console.ReadLine());
+                var bfs = new BuscaEmLargura(OperacoesGrafos.ObterGrafo());
+                Console.WriteLine(bfs.Executar(inicioBFS));
+            }
+            catch(ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
