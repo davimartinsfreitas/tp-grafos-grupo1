@@ -86,6 +86,7 @@ namespace tp_grafos.RepresentacaoGrafos
                 }
             }
         }
+        
         public double obterPeso(int origem, int destino)
         {
             return lista[origem].Find(x => x.Item1 == destino).Item2;
@@ -251,5 +252,22 @@ namespace tp_grafos.RepresentacaoGrafos
             int grau = lista[indiceVertice].Count();
             return grau;
         }
+
+        public List<int> ObterVizinhos(int vertice)
+        {
+            List<int> vizinhos = new List<int>();
+
+            if (lista.ContainsKey(vertice))
+            {
+                foreach (var aresta in lista[vertice])
+                {
+                    vizinhos.Add(aresta.Item1);
+                }
+            }
+
+            return vizinhos;
+        }
+
+
     }
 }

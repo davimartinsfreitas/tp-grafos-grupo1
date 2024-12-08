@@ -1,8 +1,8 @@
 namespace tp_grafos.RepresentacaoGrafos
 {
-    internal class DesafioFerrovias
+    public class DesafioFerrovias
     {
-        public static void Executar()
+        public void Executar()
         {
             string entrada = Console.ReadLine() ?? " " ;
 
