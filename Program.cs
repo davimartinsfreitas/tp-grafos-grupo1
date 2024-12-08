@@ -11,10 +11,8 @@ namespace tp_grafos
         {
             OpcoesMenu opcaoUsuario;
             int opcaoAux;
-
-            do
-            {
-                Console.WriteLine(exibeMenu());
+            do{
+                Console.WriteLine(exibeMenu());    
                 opcaoAux = lerNumero();
                 opcaoUsuario = (OpcoesMenu)opcaoAux - 1;
                 processarMenu(opcaoUsuario);
@@ -53,8 +51,10 @@ namespace tp_grafos
                     Console.WriteLine(OperacoesGrafos.VerificarVerticesAdjacentes());
                     break;
                 case OpcoesMenu.SUBSTITUIR_PESO_ARESTA:
+                    OperacoesGrafos.SubstituirOPeso();
                     break;
                 case OpcoesMenu.TROCAR_VERTICES:
+                    OperacoesGrafos.trocarVertice();
                     break;
                 case OpcoesMenu.BUSCA_EM_LARGURA:
                     Console.WriteLine("Digite o vértice inicial para a busca em largura:");
@@ -71,6 +71,7 @@ namespace tp_grafos
                     Console.WriteLine(OperacoesGrafos.ExercutarFloyd());
                     break;
                 case OpcoesMenu.DESAFIO_FERROVIAS:
+                    DesafioFerrovias.Executar();
                     break;
                 case OpcoesMenu.SAIR:
                     Console.WriteLine("Saindo...");

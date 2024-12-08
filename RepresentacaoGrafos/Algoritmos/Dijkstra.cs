@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
-using tp_grafos.RepresentacaoGrafos;
+﻿using System.Text;
 
 namespace tp_grafos.RepresentacaoGrafos.Algoritmos
 {
@@ -37,7 +30,7 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
         public void ExecultarMetodo()
         {
             int indiceRaiz = raiz - 1;
-            int n = representacaoGrafos.QuantidadeDeVerices();
+            int n = representacaoGrafos.QuantidadeDeVertices();
             distancia = new double[n];
             caminho = new int[n];
             explorados = new bool[n];

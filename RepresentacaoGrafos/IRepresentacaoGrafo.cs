@@ -24,12 +24,16 @@ namespace tp_grafos.RepresentacaoGrafos
 
         public abstract int ObterGrauSaidaVertice(int vertice);
 
-        public abstract int QuantidadeDeVerices();
+        public abstract int QuantidadeDeVertices();
 
         public abstract double obterPeso(int origem, int destino);
 
         public abstract void ClonarMatriz(double[,] matriz);
 
+        public abstract void SubstituirOPeso(double peso, int origem, int destino);
+
+        public abstract void trocarVertice(int v1, int v2);
+      
         List<int> ObterVizinhos(int vertice);
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Text;
 using tp_grafos.LeituraArquivo;
 using tp_grafos.RepresentacaoGrafos.Algoritmos;
 
@@ -15,11 +12,10 @@ namespace tp_grafos.RepresentacaoGrafos
         {
             if (grafo == null)
             {
-                throw new InvalidOperationException("O grafo ainda não foi criado ou lido.");
+                throw new ArgumentException("O grafo ainda não foi criado ou lido.\n");
             }
             return grafo;
         }
-
 
         public static void CriarEImprimirGrafo()
         {
@@ -52,11 +48,8 @@ namespace tp_grafos.RepresentacaoGrafos
                 int destino = Convert.ToInt32(entrada[1]);
                 double peso = Convert.ToDouble(entrada[2]);
 
-                if (densidade > 0.5)
-                {
-                    origem--;
-                    destino--;
-                }
+                origem--;
+                destino--;
 
                 grafo.AdicionarAresta(origem, destino, peso);
             }
@@ -66,28 +59,38 @@ namespace tp_grafos.RepresentacaoGrafos
 
         public static string ExecutarDijkstra()
         {
-            if (grafo == null) LerGrafoFormatoDimacs();
-            ImprimirGrafo();
+            try{
+                ObterGrafo();
+                ImprimirGrafo();
 
-            Console.WriteLine("Digite o nó que deseja iniciar a interação: ");
-            int raiz = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Digite o nó que deseja iniciar a interação: ");
+                int raiz = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Digite o destino que deseja ter a interação: ");
-            int destino = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Digite o destino que deseja ter a interação: ");
+                int destino = Convert.ToInt32(Console.ReadLine());
 
-            Dijkstra dijkstra = new Dijkstra(raiz, destino, grafo);
-            dijkstra.ExecultarMetodo();
-            return dijkstra.imprimir();
+                Dijkstra dijkstra = new Dijkstra(raiz, destino, grafo);
+                dijkstra.ExecultarMetodo();
+                return dijkstra.imprimir();
+            }catch(ArgumentException ex)
+            {
+                return ex.Message;
+            }
         }
 
         public static string ExercutarFloyd()
         {
-            if (grafo == null) LerGrafoFormatoDimacs();
-            ImprimirGrafo();
-
-            Floyd_Warshall floyd_Warshall = new Floyd_Warshall(grafo);
-            floyd_Warshall.execultarFloyd();
-            return floyd_Warshall.ImprimirMenorCaminho();
+            try
+            {
+                ObterGrafo();
+                ImprimirGrafo();
+                Floyd_Warshall floyd_Warshall = new Floyd_Warshall(grafo);
+                floyd_Warshall.execultarFloyd();
+                return floyd_Warshall.ImprimirMenorCaminho();
+            }catch(ArgumentException ex)
+            {
+                return ex.Message;
+            }
         }
 
         public static void ImprimirGrafo()
@@ -107,21 +110,27 @@ namespace tp_grafos.RepresentacaoGrafos
 
         public static string ImprimirArestasAdjacentes()
         {
-            if (grafo == null) LerGrafoFormatoDimacs();
-            ImprimirGrafo();
-
-            Console.WriteLine("\nInforme a aresta da qual deseja saber as arestas adjacentes, no formato a seguir:");
-            Console.WriteLine("Informe o vértice de origem da aresta:");
-            int origem = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Informe o vértice de destino da aresta:");
-            int destino = Convert.ToInt32(Console.ReadLine());
-
             string retorno = "";
             try
             {
-                retorno = grafo.ObterArestasAdjacentes(origem, destino);
-            }
-            catch (ArgumentException ex)
+                ObterGrafo();
+                ImprimirGrafo();
+
+                Console.WriteLine("\nInforme a aresta da qual deseja saber as arestas adjacentes, no formato a seguir:");
+                Console.WriteLine("Informe o vértice de origem da aresta:");
+                int origem = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Informe o vértice de destino da aresta:");
+                int destino = Convert.ToInt32(Console.ReadLine());
+
+                try
+                {
+                    retorno = grafo.ObterArestasAdjacentes(origem, destino);
+                }
+                catch (ArgumentException ex)
+                {
+                    retorno = ex.Message;
+                }
+            }catch(ArgumentException ex)
             {
                 retorno = ex.Message;
             }
@@ -131,20 +140,27 @@ namespace tp_grafos.RepresentacaoGrafos
 
         public static string ImprimirVerticesAdjacentes()
         {
-            if (grafo == null) LerGrafoFormatoDimacs();
-            ImprimirGrafo();
-
-            Console.WriteLine("Informe o vértice para o qual deseja saber os vértices adjacentes:");
-            int vertice = Convert.ToInt32(Console.ReadLine());
-
-            string retorno = "\nVértices adjacentes a " + vertice + ":\n";
-            Dictionary<string, StringBuilder> adjacencias = new Dictionary<string, StringBuilder>();
+            string retorno = "";
             try
             {
-                adjacencias = grafo.ObterVerticesAdjacentes(vertice);
-                retorno += adjacencias["sucessores"].ToString() + adjacencias["predecessores"].ToString();
-            }
-            catch (ArgumentException ex)
+                ObterGrafo();
+                ImprimirGrafo();
+
+                Console.WriteLine("Informe o vértice para o qual deseja saber os vértices adjacentes:");
+                int vertice = Convert.ToInt32(Console.ReadLine());
+
+                retorno = "\nVértices adjacentes a " + vertice + ":\n";
+                Dictionary<string, StringBuilder> adjacencias = new Dictionary<string, StringBuilder>();
+                try
+                {
+                    adjacencias = grafo.ObterVerticesAdjacentes(vertice);
+                    retorno += adjacencias["sucessores"].ToString() + adjacencias["predecessores"].ToString();
+                }
+                catch (ArgumentException ex)
+                {
+                    retorno = ex.Message;
+                }
+            }catch(ArgumentException ex)
             {
                 retorno = ex.Message;
             }
@@ -153,67 +169,85 @@ namespace tp_grafos.RepresentacaoGrafos
 
         public static string ImprimirArestasIncidentes()
         {
-            if (grafo == null) LerGrafoFormatoDimacs();
-            ImprimirGrafo();
-
-            Console.WriteLine("Informe o vértice para o qual deseja saber as arestas incidentes:");
-            int vertice = Convert.ToInt32(Console.ReadLine());
-
-            string retorno = "\nArestas incidentes a " + vertice + ":\n";
-
+            string retorno = "";
             try
             {
-                retorno += grafo.ObterArestasIncidentes(vertice);
-            }
-            catch (ArgumentException ex)
+                ObterGrafo();
+                ImprimirGrafo();
+
+                Console.WriteLine("Informe o vértice para o qual deseja saber as arestas incidentes:");
+                int vertice = Convert.ToInt32(Console.ReadLine());
+
+                retorno = "\nArestas incidentes a " + vertice + ":\n";
+
+                try
+                {
+                    retorno += grafo.ObterArestasIncidentes(vertice);
+                }
+                catch (ArgumentException ex)
+                {
+                    retorno = ex.Message;
+                }
+                
+            }catch(ArgumentException ex)
             {
                 retorno = ex.Message;
             }
-
             return retorno;
         }
 
         public static string ImprimirVerticesIncidentesEmAresta()
         {
-            if (grafo == null) LerGrafoFormatoDimacs();
-            ImprimirGrafo();
+            string retorno = "";
 
-            Console.WriteLine("\nInforme a aresta da qual deseja saber os vértices incidentes, no formato a seguir:");
-            Console.WriteLine("Informe o vértice de origem da aresta");
-            int origem = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Informe o vértice de destino da aresta");
-            int destino = Convert.ToInt32(Console.ReadLine());
+            try{
+                ObterGrafo();
+                ImprimirGrafo();
+                Console.WriteLine("\nInforme a aresta da qual deseja saber os vértices incidentes, no formato a seguir:");
+                Console.WriteLine("Informe o vértice de origem da aresta");
+                int origem = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Informe o vértice de destino da aresta");
+                int destino = Convert.ToInt32(Console.ReadLine());
 
-            string retorno = "\nVertices incidentes a aresta informada:\n";
-            try
-            {
-                retorno += grafo.ObterVerticesIncidentesAAresta(origem, destino);
-            }
-            catch (ArgumentException ex)
+                retorno = "\nVertices incidentes a aresta informada:\n";
+                try
+                {
+                    retorno += grafo.ObterVerticesIncidentesAAresta(origem, destino);
+                }
+                catch (ArgumentException ex)
+                {
+                    retorno = ex.Message;
+                }
+            }catch(ArgumentException ex)
             {
                 retorno = ex.Message;
             }
-
             return retorno;
         }
 
         public static string ImprimirGrauVertice()
         {
-            if (grafo == null) LerGrafoFormatoDimacs();
-            ImprimirGrafo();
-
-            Console.WriteLine("\nInforme o vértice que deseja saber o grau:");
-            int vertice = Convert.ToInt32(Console.ReadLine());
-
             string retorno = "";
-            try
-            {
-                string grauEntrada = $"\nGrau de entrada do vértice {vertice}: " + grafo.ObterGrauEntradaVertice(vertice);
-                string grauSaida = $"\nGrau de saída do vértice {vertice}: " + grafo.ObterGrauSaidaVertice(vertice);
-                retorno += grauEntrada;
-                retorno += grauSaida;
-            }
-            catch (ArgumentException ex)
+
+            try{
+                ObterGrafo();
+                ImprimirGrafo();
+
+                Console.WriteLine("\nInforme o vértice que deseja saber o grau:");
+                int vertice = Convert.ToInt32(Console.ReadLine());
+
+                try
+                {
+                    string grauEntrada = $"\nGrau de entrada do vértice {vertice}: " + grafo.ObterGrauEntradaVertice(vertice);
+                    string grauSaida = $"\nGrau de saída do vértice {vertice}: " + grafo.ObterGrauSaidaVertice(vertice);
+                    retorno += grauEntrada;
+                    retorno += grauSaida;
+                }
+                catch (ArgumentException ex)
+                {
+                    retorno = ex.Message;
+                }       
+            }catch(ArgumentException ex)
             {
                 retorno = ex.Message;
             }
@@ -222,26 +256,83 @@ namespace tp_grafos.RepresentacaoGrafos
 
         public static string VerificarVerticesAdjacentes()
         {
-            if (grafo == null) LerGrafoFormatoDimacs();
-            ImprimirGrafo();
-
-            Console.WriteLine("\nInforme os vértices que deseja saber se são adjacentes");
-            Console.WriteLine("Vértice v:");
-            int vertice1 = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Vértice w:");
-            int vertice2 = Convert.ToInt32(Console.ReadLine());
-
             string retorno = "";
-            if (grafo.VerificarVerticesAdjacentes(vertice1, vertice2))
+            try
             {
-                retorno = "\nOs vértices são adjacentes!";
-            }
-            else
+                ObterGrafo();
+                ImprimirGrafo();
+
+                Console.WriteLine("\nInforme os vértices que deseja saber se são adjacentes");
+                Console.WriteLine("Vértice v:");
+                int vertice1 = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Vértice w:");
+                int vertice2 = Convert.ToInt32(Console.ReadLine());
+
+                retorno = "";
+                if (grafo.VerificarVerticesAdjacentes(vertice1, vertice2))
+                {
+                    retorno = "\nOs vértices são adjacentes!";
+                }
+                else
+                {
+                    retorno = "\nOs vértices não são adjacentes!";
+                }                  
+            }catch(ArgumentException ex)
             {
-                retorno = "\nOs vértices não são adjacentes!";
+                retorno = ex.Message;
             }
             return retorno;
+        }
+
+        public static void SubstituirOPeso()
+        {
+            try
+            {
+                ObterGrafo();
+                ImprimirGrafo();
+
+                Console.WriteLine("Informe o vértice de origem da aresta");
+                int origem = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Informe o vértice de destino da aresta");
+                int destino = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Informe o novo peso: ");
+                double peso = Convert.ToDouble(Console.ReadLine());
+                try
+                {
+                    grafo.SubstituirOPeso(peso, origem, destino);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }      
+                ImprimirGrafo();              
+            }catch(ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void trocarVertice()
+        {
+            try
+            {
+                ObterGrafo();
+                ImprimirGrafo();
+                Console.WriteLine("Informe o vértice que deseja trocar no grafo:");
+                int v1 = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Informe outro vértice que deseja trocar no grafo: ");
+                int v2 = Convert.ToInt32(Console.ReadLine());
+                try{
+                    grafo.trocarVertice(v1,v2);
+                    ImprimirGrafo();
+                }catch(ArgumentException ex){
+                    Console.WriteLine(ex.Message);  
+                }                
+            }catch(ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
