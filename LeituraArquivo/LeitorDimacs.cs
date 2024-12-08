@@ -38,9 +38,10 @@ namespace tp_grafos.LeituraArquivo
                         int destino = Convert.ToInt32(atributosAresta[1]);
                         int peso = Convert.ToInt32(atributosAresta[2]);
 
-
-                        origem--;
-                        destino--;
+                        if(Math.Round(densidade) == 1){
+                            origem--;
+                            destino--;        
+                        }
 
                         representacaoGrafos.AdicionarAresta(origem, destino, peso);
                     }
