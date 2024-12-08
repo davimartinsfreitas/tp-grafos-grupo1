@@ -51,6 +51,7 @@ namespace tp_grafos
                     Console.WriteLine(OperacoesGrafos.VerificarVerticesAdjacentes());
                     break;
                 case OpcoesMenu.SUBSTITUIR_PESO_ARESTA:
+                    OperacoesGrafos.SubstituirOPeso();
                     break;
                 case OpcoesMenu.TROCAR_VERTICES:
                     break;
@@ -59,8 +60,10 @@ namespace tp_grafos
                 case OpcoesMenu.BUSCA_EM_PROFUNDIDADE:
                     break;
                 case OpcoesMenu.CAMINHO_MINIMO_DIJKSTRA:
+                    Console.WriteLine(OperacoesGrafos.ExecutarDijkstra());
                     break;
                 case OpcoesMenu.CAMINHO_MINIMO_FLOYD_WARSHALL:
+                    Console.WriteLine(OperacoesGrafos.ExercutarFloyd());
                     break;
                 case OpcoesMenu.DESAFIO_FERROVIAS:
                     break;

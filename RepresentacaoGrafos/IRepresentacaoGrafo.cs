@@ -2,9 +2,9 @@ using System.Text;
 
 namespace tp_grafos.RepresentacaoGrafos
 {
-    interface IRepresentacaoGrafos
+    public interface IRepresentacaoGrafos
     {
-        public abstract void AdicionarAresta(int origem, int destino, int peso);
+        public abstract void AdicionarAresta(int origem, int destino, double peso);
 
         public abstract void Imprimir();
 
@@ -23,6 +23,13 @@ namespace tp_grafos.RepresentacaoGrafos
         public abstract int ObterGrauEntradaVertice(int vertice);
 
         public abstract int ObterGrauSaidaVertice(int vertice);
+
+        public abstract int QuantidadeDeVerices();
+
+        public abstract double obterPeso(int origem, int destino);
+
+        public abstract void ClonarMatriz(double[,] matriz);
+
+        public abstract void SubstituirOPeso(double peso, int origem, int destino);
     }
 }
-    
