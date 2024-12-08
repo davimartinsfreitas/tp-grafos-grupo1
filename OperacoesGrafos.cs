@@ -351,5 +351,39 @@ namespace tp_grafos.RepresentacaoGrafos
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public static void DesafioFerrovia()
+        {
+            try
+            {
+                Console.WriteLine("Insere aqui a matriz de distancias minimas: ");
+                DesafioFerrovias desafioFerrovia = new DesafioFerrovias();
+                desafioFerrovia.Executar();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void ExecutarBuscaEmProfundidade()
+        {
+            try
+            {
+                ObterGrafo();
+                ImprimirGrafo();
+                Console.WriteLine("Digite o vértice inicial para a busca em profundidade:");
+                int raiz = Convert.ToInt32(Console.ReadLine());
+                BuscaEmProfundidade buscaEmProfundidade = new BuscaEmProfundidade(raiz, grafo);
+                buscaEmProfundidade.IniciarBusca();
+                buscaEmProfundidade.Imprimir();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
     }
 }
