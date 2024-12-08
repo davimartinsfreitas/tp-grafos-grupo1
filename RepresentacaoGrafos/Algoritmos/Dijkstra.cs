@@ -30,7 +30,7 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
         public void ExecultarMetodo()
         {
             int indiceRaiz = raiz - 1;
-            int n = representacaoGrafos.QuantidadeDeVerices();
+            int n = representacaoGrafos.QuantidadeDeVertices();
             distancia = new double[n];
             caminho = new int[n];
             explorados = new bool[n];

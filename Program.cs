@@ -54,6 +54,7 @@ namespace tp_grafos
                     OperacoesGrafos.SubstituirOPeso();
                     break;
                 case OpcoesMenu.TROCAR_VERTICES:
+                    OperacoesGrafos.trocarVertice();
                     break;
                 case OpcoesMenu.BUSCA_EM_LARGURA:
                     break;
