@@ -33,5 +33,7 @@ namespace tp_grafos.RepresentacaoGrafos
         public abstract void SubstituirOPeso(double peso, int origem, int destino);
 
         public abstract void trocarVertice(int v1, int v2);
+      
+        List<int> ObterVizinhos(int vertice);
     }
 }

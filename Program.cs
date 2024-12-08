@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using tp_grafos.RepresentacaoGrafos;
+using tp_grafos.RepresentacaoGrafos.Algoritmos;
+
 
 namespace tp_grafos
 {
@@ -55,6 +57,10 @@ namespace tp_grafos
                     OperacoesGrafos.trocarVertice();
                     break;
                 case OpcoesMenu.BUSCA_EM_LARGURA:
+                    Console.WriteLine("Digite o vértice inicial para a busca em largura:");
+                    int inicioBFS = Convert.ToInt32(Console.ReadLine());
+                    var bfs = new BuscaEmLargura(OperacoesGrafos.ObterGrafo());
+                    Console.WriteLine(bfs.Executar(inicioBFS));
                     break;
                 case OpcoesMenu.BUSCA_EM_PROFUNDIDADE:
                     break;

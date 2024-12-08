@@ -279,6 +279,22 @@ namespace tp_grafos.RepresentacaoGrafos
             return grau;
         }
 
+        public List<int> ObterVizinhos(int vertice)
+        {
+            List<int> vizinhos = new List<int>();
+            int tamanho = matriz.GetLength(0);
+
+            for (int i = 0; i < tamanho; i++)
+            {
+                if (matriz[vertice, i] > 0)
+                {
+                    vizinhos.Add(i);
+                }
+            }
+
+            return vizinhos;
+        }
+
     }
 }
 
