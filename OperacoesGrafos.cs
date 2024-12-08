@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Text;
 using tp_grafos.LeituraArquivo;
 using tp_grafos.RepresentacaoGrafos.Algoritmos;
 
