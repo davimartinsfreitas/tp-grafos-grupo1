@@ -13,23 +13,43 @@ namespace tp_grafos.RepresentacaoGrafos
 
         public void ClonarMatriz(double[,] matrizClone)
         {
-            for (int i = 0; i < QuantidadeDeVerices(); i++)
+            for (int i = 0; i < QuantidadeDeVertices(); i++)
             {
-                for (int j = 0; j < QuantidadeDeVerices(); j++)
+                for (int j = 0; j < QuantidadeDeVertices(); j++)
                 {
-                    if (this.matriz[i,j]>0)
+                    if (this.matriz[i, j] > 0)
                     {
-                        matrizClone[i, j] = matriz[i,j];
+                        matrizClone[i, j] = matriz[i, j];
                     }
                 }
             }
 
         }
+
+        public void trocarVertice(int v1, int v2)
+        {
+            int indiceOrigem = v1 - 1;
+            int indiceDestino = v2 - 1;
+            if (indiceOrigem < 0 || indiceDestino < 0 || indiceOrigem > QuantidadeDeVertices() - 1 || indiceDestino > QuantidadeDeVertices() - 1)
+            {
+                throw new ArgumentException("Não há esse vertice no grafo! ");
+            }
+            for (int i = 0; i < QuantidadeDeVertices(); i++)
+            {
+                double aux = matriz[i, indiceOrigem];
+                matriz[i, indiceOrigem] = matriz[i, indiceDestino];
+                matriz[i, indiceDestino] = aux;
+
+                double aux2 = matriz[indiceOrigem, i];
+                matriz[indiceOrigem, i] = matriz[indiceDestino, i];
+                matriz[indiceDestino, i] = aux2;
+            }
+        }
         public void SubstituirOPeso(double peso, int origem, int destino)
         {
-            int indiceOrigem = origem -1;
-            int indiceDestino = destino -1;
-            if (!IsArestaExistente(indiceOrigem,indiceDestino))
+            int indiceOrigem = origem - 1;
+            int indiceDestino = destino - 1;
+            if (!IsArestaExistente(indiceOrigem, indiceDestino))
             {
                 throw new ArgumentException("Não a aresta compativel com a informada! ");
             }
@@ -46,7 +66,7 @@ namespace tp_grafos.RepresentacaoGrafos
             matriz[origem, destino] = peso;
         }
 
-        public int QuantidadeDeVerices()
+        public int QuantidadeDeVertices()
         {
             return matriz.GetLength(0);
         }

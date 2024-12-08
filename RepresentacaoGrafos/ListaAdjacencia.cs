@@ -16,11 +16,46 @@ namespace tp_grafos.RepresentacaoGrafos
             }
         }
 
+        public void trocarVertice(int v1, int v2)
+        {
+            int indiceOrigem = v1 - 1;
+            int indiceDestino = v2 - 1;
+            if (indiceOrigem < 0 || indiceDestino < 0 || indiceOrigem > QuantidadeDeVertices() - 1 || indiceDestino > QuantidadeDeVertices() - 1)
+            {
+                throw new ArgumentException("Não há esse vertice no grafo! ");
+            }
+
+            var aux = lista[indiceOrigem];
+            lista[indiceOrigem] = lista[indiceDestino];
+            lista[indiceDestino] = aux;
+
+            foreach (var result in lista.Values)
+            {
+                int index = result.FindIndex(x => x.Item1 == indiceOrigem);
+                if (index != -1)
+                {
+                    var novoItem = (indiceDestino, result[index].Item2);
+                    result[index] = novoItem;
+                }
+
+            }
+            foreach (var result in lista.Values)
+            {
+                int index = result.FindIndex(x => x.Item1 == indiceDestino);
+                if (index != -1)
+                {
+                    var novoItem = (indiceOrigem, result[index].Item2);
+                    result[index] = novoItem;
+                }
+            }
+
+        }
+
         public void SubstituirOPeso(double peso, int origem, int destino)
         {
-            int IndiceDestino = destino -1;
-            int IndiceOrigem = origem -1;  
-            if(!IsArestaExistente(origem,destino))
+            int IndiceDestino = destino - 1;
+            int IndiceOrigem = origem - 1;
+            if (!IsArestaExistente(origem, destino))
             {
                 throw new ArgumentException("Não há essa aresta no grafo");
             }
@@ -29,13 +64,13 @@ namespace tp_grafos.RepresentacaoGrafos
             lista[IndiceOrigem][index] = novoItem;
         }
 
-        public void ClonarMatriz(double[,] matrizClone )
+        public void ClonarMatriz(double[,] matrizClone)
         {
-            foreach (KeyValuePair<int,List<(int,double)>> adjacencia in lista )
+            foreach (KeyValuePair<int, List<(int, double)>> adjacencia in lista)
             {
                 foreach (var result in adjacencia.Value)
                 {
-                    matrizClone[adjacencia.Key,result.Item1] = result.Item2;
+                    matrizClone[adjacencia.Key, result.Item1] = result.Item2;
                 }
             }
         }
@@ -43,7 +78,7 @@ namespace tp_grafos.RepresentacaoGrafos
         {
             return lista[origem].Find(x => x.Item1 == destino).Item2;
         }
-        public int QuantidadeDeVerices()
+        public int QuantidadeDeVertices()
         {
             return lista.Keys.Count;
         }

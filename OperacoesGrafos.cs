@@ -253,5 +253,18 @@ namespace tp_grafos.RepresentacaoGrafos
 
             ImprimirGrafo();
         }
+
+        public static void trocarVertice()
+        {
+            if (grafo == null) LerGrafoFormatoDimacs();
+            ImprimirGrafo();
+            Console.WriteLine("Informe o vértice que deseja trocar no grafo:");
+            int v1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Informe outro vértice que deseja trocar no grafo: ");
+            int v2 = Convert.ToInt32(Console.ReadLine());
+
+            grafo.trocarVertice(v1,v2);
+            ImprimirGrafo();
+        }
     }
 }

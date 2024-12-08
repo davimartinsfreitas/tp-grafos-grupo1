@@ -19,7 +19,7 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
         public void execultarFloyd()
         {
 
-            int n = grafos.QuantidadeDeVerices();
+            int n = grafos.QuantidadeDeVertices();
             distancia = new double[n, n];
 
             for (int i = 0; i < n; i++)
@@ -57,7 +57,7 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
         public string ImprimirMenorCaminho()
         {
             var result = new StringBuilder();
-            int n = grafos.QuantidadeDeVerices();
+            int n = grafos.QuantidadeDeVertices();
 
             result.AppendLine("Distâncias:");
             for (int i = 0; i < n; i++)
