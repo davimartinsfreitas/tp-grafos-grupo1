@@ -21,13 +21,13 @@ namespace tp_grafos.RepresentacaoGrafos
             }
         }
 
-        public void ClonarMatriz(double[,] matrizClone )
+        public void ClonarMatriz(double[,] matrizClone)
         {
-            foreach (KeyValuePair<int,List<(int,double)>> adjacencia in lista )
+            foreach (KeyValuePair<int, List<(int, double)>> adjacencia in lista)
             {
                 foreach (var result in adjacencia.Value)
                 {
-                    matrizClone[adjacencia.Key,result.Item1] = result.Item2;
+                    matrizClone[adjacencia.Key, result.Item1] = result.Item2;
                 }
             }
         }
@@ -184,5 +184,22 @@ namespace tp_grafos.RepresentacaoGrafos
             lista[vertice].ForEach((aresta) => grau++);
             return grau;
         }
+
+        public List<int> ObterVizinhos(int vertice)
+        {
+            List<int> vizinhos = new List<int>();
+
+            if (lista.ContainsKey(vertice))
+            {
+                foreach (var aresta in lista[vertice])
+                {
+                    vizinhos.Add(aresta.Item1); // Adicionar os vértices conectados
+                }
+            }
+
+            return vizinhos;
+        }
+
+
     }
 }

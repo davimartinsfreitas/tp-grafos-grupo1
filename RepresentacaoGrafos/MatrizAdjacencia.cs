@@ -22,9 +22,9 @@ namespace tp_grafos.RepresentacaoGrafos
             {
                 for (int j = 0; j < QuantidadeDeVerices(); j++)
                 {
-                    if (this.matriz[i,j]>0)
+                    if (this.matriz[i, j] > 0)
                     {
-                        matrizClone[i, j] = matriz[i,j];
+                        matrizClone[i, j] = matriz[i, j];
                     }
                 }
             }
@@ -245,6 +245,24 @@ namespace tp_grafos.RepresentacaoGrafos
             }
             return grau;
         }
+
+
+        public List<int> ObterVizinhos(int vertice)
+        {
+            List<int> vizinhos = new List<int>();
+            int tamanho = matriz.GetLength(0);
+
+            for (int i = 0; i < tamanho; i++)
+            {
+                if (matriz[vertice, i] > 0) // Verifica se há uma aresta
+                {
+                    vizinhos.Add(i);
+                }
+            }
+
+            return vizinhos;
+        }
+
     }
 }
 

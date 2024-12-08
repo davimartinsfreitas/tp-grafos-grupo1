@@ -11,6 +11,16 @@ namespace tp_grafos.RepresentacaoGrafos
     {
         private static IRepresentacaoGrafos? grafo;
 
+        public static IRepresentacaoGrafos ObterGrafo()
+        {
+            if (grafo == null)
+            {
+                throw new InvalidOperationException("O grafo ainda não foi criado ou lido.");
+            }
+            return grafo;
+        }
+
+
         public static void CriarEImprimirGrafo()
         {
             Console.WriteLine("Digite o número de vértices:");
