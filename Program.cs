@@ -51,6 +51,7 @@ namespace tp_grafos
                     Console.WriteLine(OperacoesGrafos.VerificarVerticesAdjacentes());
                     break;
                 case OpcoesMenu.SUBSTITUIR_PESO_ARESTA:
+                    OperacoesGrafos.SubstituirOPeso();
                     break;
                 case OpcoesMenu.TROCAR_VERTICES:
                     break;

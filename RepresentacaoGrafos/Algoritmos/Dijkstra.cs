@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
-using tp_grafos.RepresentacaoGrafos;
+﻿using System.Text;
 
 namespace tp_grafos.RepresentacaoGrafos.Algoritmos
 {

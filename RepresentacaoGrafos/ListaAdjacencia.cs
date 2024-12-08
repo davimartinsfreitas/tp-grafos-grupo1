@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 
 namespace tp_grafos.RepresentacaoGrafos
@@ -19,6 +14,19 @@ namespace tp_grafos.RepresentacaoGrafos
             {
                 lista[i] = new List<(int, double)>();
             }
+        }
+        
+        public void SubstituirOPeso(double peso, int origem, int destino)
+        {
+            int IndiceDestino = destino -1;
+            int IndiceOrigem = origem -1;  
+            if(!IsArestaExistente(origem,destino))
+            {
+                throw new ArgumentException("Não há essa aresta no grafo");
+            }
+            int index = lista[IndiceOrigem].FindIndex(x => x.Item1 == IndiceDestino);
+            var novoItem = (IndiceDestino, peso);
+            lista[IndiceOrigem][index] = novoItem;
         }
 
         public void ClonarMatriz(double[,] matrizClone )

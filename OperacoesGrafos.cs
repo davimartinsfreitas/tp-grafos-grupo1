@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Text;
 using tp_grafos.LeituraArquivo;
 using tp_grafos.RepresentacaoGrafos.Algoritmos;
 
@@ -232,6 +229,29 @@ namespace tp_grafos.RepresentacaoGrafos
                 retorno = "\nOs vértices não são adjacentes!";
             }
             return retorno;
+        }
+
+        public static void SubstituirOPeso()
+        {
+            if (grafo == null) LerGrafoFormatoDimacs();
+            ImprimirGrafo();
+
+            Console.WriteLine("Informe o vértice de origem da aresta");
+            int origem = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Informe o vértice de destino da aresta");
+            int destino = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Informe o novo peso: ");
+            double peso = Convert.ToDouble(Console.ReadLine());
+            try
+            {
+                grafo.SubstituirOPeso(peso, origem, destino);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            ImprimirGrafo();
         }
     }
 }

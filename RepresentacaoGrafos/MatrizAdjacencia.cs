@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace tp_grafos.RepresentacaoGrafos
 {
@@ -29,6 +24,17 @@ namespace tp_grafos.RepresentacaoGrafos
                 }
             }
 
+        }
+        
+        public void SubstituirOPeso(double peso, int origem, int destino)
+        {
+            int indiceOrigem = origem -1;
+            int indiceDestino = destino -1;
+            if (!IsArestaExistente(indiceOrigem,indiceDestino))
+            {
+                throw new ArgumentException("Não a aresta compativel com a informada! ");
+            }
+            matriz[indiceOrigem, indiceDestino] = peso;
         }
 
         public double obterPeso(int origem, int destino)
@@ -77,22 +83,19 @@ namespace tp_grafos.RepresentacaoGrafos
             {
                 if (i != destinoAux && matriz[origemAux, i] > 0)
                 {
-                    // Arestas que saem do vértice de origem
                     arestasAdjacentes += $"({origem},{i + 1},{matriz[origemAux, i]})\n";
                 }
                 else if (matriz[i, origemAux] > 0)
                 {
-                    // Arestas que chegam no vértice de origem
                     arestasAdjacentes += $"({i + 1},{origem},{matriz[i, origemAux]})\n";
                 }
                 else if (i != origemAux && matriz[i, destinoAux] > 0)
                 {
-                    // Arestas que chegam no vértice de destino
                     arestasAdjacentes += $"({i + 1},{destino},{matriz[i, destinoAux]})\n";
                 }
                 else if (matriz[destinoAux, i] > 0)
                 {
-                    // Arestas que saem no vértice de destino
+
                     arestasAdjacentes += $"({destino},{i + 1},{matriz[destinoAux, i]})\n";
                 }
             }
@@ -167,7 +170,6 @@ namespace tp_grafos.RepresentacaoGrafos
             return arestasIncidentes.ToString();
         }
 
-        /// TODO: criar label para aresta
         public string ObterVerticesIncidentesAAresta(int origem, int destino)
         {
             int tamanho = matriz.GetLength(0);
@@ -245,6 +247,7 @@ namespace tp_grafos.RepresentacaoGrafos
             }
             return grau;
         }
+
     }
 }
 
