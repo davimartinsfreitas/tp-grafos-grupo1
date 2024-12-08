@@ -114,6 +114,7 @@ namespace tp_grafos.RepresentacaoGrafos
                 }
                 else if (matriz[destinoAux, i] > 0)
                 {
+
                     arestasAdjacentes += $"({destino},{i + 1},{matriz[destinoAux, i]})\n";
                 }
             }
