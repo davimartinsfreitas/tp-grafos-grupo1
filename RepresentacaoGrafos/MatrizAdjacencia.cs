@@ -30,6 +30,16 @@ namespace tp_grafos.RepresentacaoGrafos
             }
 
         }
+        public void SubstituirOPeso(double peso, int origem, int destino)
+        {
+            int indiceOrigem = origem -1;
+            int indiceDestino = destino -1;
+            if (!IsArestaExistente(indiceOrigem,indiceDestino))
+            {
+                throw new ArgumentException("Não a aresta compativel com a informada! ");
+            }
+            matriz[indiceOrigem, indiceDestino] = peso;
+        }
 
         public double obterPeso(int origem, int destino)
         {
@@ -245,6 +255,7 @@ namespace tp_grafos.RepresentacaoGrafos
             }
             return grau;
         }
+
     }
 }
 
