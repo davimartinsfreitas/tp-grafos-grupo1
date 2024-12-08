@@ -60,6 +60,7 @@ namespace tp_grafos
                     OperacoesGrafos.ExecutarBuscaEmLargura();
                     break;
                 case OpcoesMenu.BUSCA_EM_PROFUNDIDADE:
+                    OperacoesGrafos.ExecutarBuscaEmProfundidade();
                     break;
                 case OpcoesMenu.CAMINHO_MINIMO_DIJKSTRA:
                     Console.WriteLine(OperacoesGrafos.ExecutarDijkstra());
@@ -68,7 +69,7 @@ namespace tp_grafos
                     Console.WriteLine(OperacoesGrafos.ExercutarFloyd());
                     break;
                 case OpcoesMenu.DESAFIO_FERROVIAS:
-                    DesafioFerrovias.Executar();
+                    OperacoesGrafos.DesafioFerrovia();
                     break;
                 case OpcoesMenu.SAIR:
                     Console.WriteLine("Saindo...");
