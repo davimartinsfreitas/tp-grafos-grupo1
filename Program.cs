@@ -62,6 +62,7 @@ namespace tp_grafos
                     Console.WriteLine(OperacoesGrafos.ExecutarDijkstra());
                     break;
                 case OpcoesMenu.CAMINHO_MINIMO_FLOYD_WARSHALL:
+                    Console.WriteLine(OperacoesGrafos.ExercutarFloyd());
                     break;
                 case OpcoesMenu.DESAFIO_FERROVIAS:
                     break;

@@ -21,6 +21,16 @@ namespace tp_grafos.RepresentacaoGrafos
             }
         }
 
+        public void ClonarMatriz(double[,] matrizClone )
+        {
+            foreach (KeyValuePair<int,List<(int,double)>> adjacencia in lista )
+            {
+                foreach (var result in adjacencia.Value)
+                {
+                    matrizClone[adjacencia.Key,result.Item1] = result.Item2;
+                }
+            }
+        }
         public double obterPeso(int origem, int destino)
         {
             return lista[origem].Find(x => x.Item1 == destino).Item2;
@@ -174,7 +184,5 @@ namespace tp_grafos.RepresentacaoGrafos
             lista[vertice].ForEach((aresta) => grau++);
             return grau;
         }
-
-
     }
 }

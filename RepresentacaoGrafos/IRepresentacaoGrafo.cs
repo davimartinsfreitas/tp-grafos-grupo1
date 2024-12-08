@@ -27,5 +27,7 @@ namespace tp_grafos.RepresentacaoGrafos
         public abstract int QuantidadeDeVerices();
 
         public abstract double obterPeso(int origem, int destino);
+
+        public abstract void ClonarMatriz(double[,] matriz);
     }
 }
