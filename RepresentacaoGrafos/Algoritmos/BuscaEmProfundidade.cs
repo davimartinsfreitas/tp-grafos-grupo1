@@ -14,15 +14,17 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
         private int[] tempoDeTermino;
         private int[] predecessor;
         private int tempoGlobal;
+        private StringBuilder representacaoArvore;
 
         public BuscaEmProfundidade(int verticeInicial, IRepresentacaoGrafos grafos)
         {
-            this.verticeInicial = verticeInicial;
+            this.verticeInicial = verticeInicial; 
             this.grafos = grafos;
             tempoDescoberta = new int[grafos.QuantidadeDeVertices()];
             tempoDeTermino = new int[grafos.QuantidadeDeVertices()];
             predecessor = new int[grafos.QuantidadeDeVertices()];
             tempoGlobal = 0;
+            representacaoArvore = new StringBuilder("\nRepresentação Árvore de Busca:");
         }
 
         public int GetVerticeInicial()
@@ -68,6 +70,7 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
             {
                 if (tempoDescoberta[v] == 0)
                 {
+                    representacaoArvore.AppendLine($"Aresta de árvore: ({vertice+1},{v+1})");
                     predecessor[v] = vertice;
                     ExecultarBuscaEmProfundidade(v);
                 }
@@ -78,7 +81,9 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
 
         public void Imprimir()
         {
-            Console.WriteLine("Informações da busca: ");
+            Console.WriteLine(representacaoArvore.ToString());
+
+            Console.WriteLine("\nInformações da busca: ");
             for (int i = 0; i < grafos.QuantidadeDeVertices(); i++)
             {
                 if (predecessor[i] != -1)
