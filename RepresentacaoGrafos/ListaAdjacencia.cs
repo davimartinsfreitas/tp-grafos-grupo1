@@ -15,7 +15,7 @@ namespace tp_grafos.RepresentacaoGrafos
                 lista[i] = new List<(int, double)>();
             }
         }
-
+        
         public void SubstituirOPeso(double peso, int origem, int destino)
         {
             int IndiceDestino = destino -1;

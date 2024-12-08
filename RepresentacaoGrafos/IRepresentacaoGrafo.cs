@@ -31,5 +31,6 @@ namespace tp_grafos.RepresentacaoGrafos
         public abstract void ClonarMatriz(double[,] matriz);
 
         public abstract void SubstituirOPeso(double peso, int origem, int destino);
+
     }
 }

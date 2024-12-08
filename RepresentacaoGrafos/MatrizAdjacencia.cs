@@ -25,6 +25,7 @@ namespace tp_grafos.RepresentacaoGrafos
             }
 
         }
+        
         public void SubstituirOPeso(double peso, int origem, int destino)
         {
             int indiceOrigem = origem -1;
@@ -94,6 +95,7 @@ namespace tp_grafos.RepresentacaoGrafos
                 }
                 else if (matriz[destinoAux, i] > 0)
                 {
+
                     arestasAdjacentes += $"({destino},{i + 1},{matriz[destinoAux, i]})\n";
                 }
             }
