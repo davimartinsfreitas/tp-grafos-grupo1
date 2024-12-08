@@ -34,15 +34,19 @@ namespace tp_grafos.RepresentacaoGrafos
             {
                 throw new ArgumentException("Não há esse vertice no grafo! ");
             }
+            
             for (int i = 0; i < QuantidadeDeVertices(); i++)
             {
                 double aux = matriz[i, indiceOrigem];
                 matriz[i, indiceOrigem] = matriz[i, indiceDestino];
                 matriz[i, indiceDestino] = aux;
+            }
 
-                double aux2 = matriz[indiceOrigem, i];
+            for (int i = 0; i < QuantidadeDeVertices(); i++)
+            {
+                double aux = matriz[indiceOrigem, i];
                 matriz[indiceOrigem, i] = matriz[indiceDestino, i];
-                matriz[indiceDestino, i] = aux2;
+                matriz[indiceDestino, i] = aux;
             }
         }
         public void SubstituirOPeso(double peso, int origem, int destino)

@@ -39,11 +39,8 @@ namespace tp_grafos.RepresentacaoGrafos
                 int destino = Convert.ToInt32(entrada[1]);
                 double peso = Convert.ToDouble(entrada[2]);
 
-                if (densidade > 0.5)
-                {
-                    origem--;
-                    destino--;
-                }
+                origem--;
+                destino--;
 
                 grafo.AdicionarAresta(origem, destino, peso);
             }
@@ -263,8 +260,12 @@ namespace tp_grafos.RepresentacaoGrafos
             Console.WriteLine("Informe outro vértice que deseja trocar no grafo: ");
             int v2 = Convert.ToInt32(Console.ReadLine());
 
-            grafo.trocarVertice(v1,v2);
-            ImprimirGrafo();
+            try{
+                grafo.trocarVertice(v1,v2);
+                ImprimirGrafo();
+            }catch(ArgumentException ex){
+                Console.WriteLine(ex.Message);  
+            }
         }
     }
 }
