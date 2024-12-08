@@ -18,7 +18,7 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
 
         public string Executar(int inicio)
         {
-            int vertices = _grafo.QuantidadeDeVerices();
+            int vertices = _grafo.QuantidadeDeVertices();
             _visitados = new bool[vertices];
             _resultado = new List<int>();
             _fila = new Queue<int>();
