@@ -9,10 +9,8 @@ namespace tp_grafos
         {
             OpcoesMenu opcaoUsuario;
             int opcaoAux;
-
-            do
             {
-                Console.WriteLine(exibeMenu());
+                Console.WriteLine(exibeMenu());    
                 opcaoAux = lerNumero();
                 opcaoUsuario = (OpcoesMenu)opcaoAux - 1;
                 processarMenu(opcaoUsuario);
@@ -21,7 +19,7 @@ namespace tp_grafos
 
         public static void processarMenu(OpcoesMenu opcaoUsuario)
         {
-            // Console.Clear();
+            Console.Clear();
             Console.WriteLine(cabecalho());
             switch (opcaoUsuario)
             {
@@ -67,6 +65,7 @@ namespace tp_grafos
                     Console.WriteLine(OperacoesGrafos.ExercutarFloyd());
                     break;
                 case OpcoesMenu.DESAFIO_FERROVIAS:
+                    DesafioFerrovias.Executar();
                     break;
                 case OpcoesMenu.SAIR:
                     Console.WriteLine("Saindo...");

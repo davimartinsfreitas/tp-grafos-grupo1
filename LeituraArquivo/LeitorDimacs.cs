@@ -21,7 +21,7 @@ namespace tp_grafos.LeituraArquivo
                 int numArestas = Convert.ToInt32(atributosGrafo[1]);
 
                 double densidade = (double) numArestas/(numVertices*(numVertices-1));
-                if(Math.Round(densidade) == 0){
+                if(Math.Round(densidade) == 1){
                     representacaoGrafos = new MatrizAdjacencia(numVertices);
                 }else{
                     representacaoGrafos = new ListaAdjacencia(numVertices);
