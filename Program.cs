@@ -9,7 +9,7 @@ namespace tp_grafos
         {
             OpcoesMenu opcaoUsuario;
             int opcaoAux;
-            {
+            do{
                 Console.WriteLine(exibeMenu());    
                 opcaoAux = lerNumero();
                 opcaoUsuario = (OpcoesMenu)opcaoAux - 1;
