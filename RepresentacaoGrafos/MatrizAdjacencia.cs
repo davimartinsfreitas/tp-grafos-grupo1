@@ -45,30 +45,27 @@ namespace tp_grafos.RepresentacaoGrafos
             {
                 throw new ArgumentException("Não há esse vertice no grafo! ");
             }
-            
+    
             for (int i = 0; i < QuantidadeDeVertices(); i++)
             {
-                double aux = matriz[i, indiceOrigem];
-                matriz[i, indiceOrigem] = matriz[i, indiceDestino];
-                matriz[i, indiceDestino] = aux;
+                if(i != indiceOrigem)
+                {
+                    double aux = matriz[indiceOrigem, i];
+                    matriz[indiceOrigem, i] = matriz[indiceDestino, i];
+                    matriz[indiceDestino, i] = aux; 
+                }
+            }
+          
+            for (int i = 0; i < QuantidadeDeVertices(); i++)
+            {
+                if(i != indiceDestino)
+                {
+                    double aux = matriz[i, indiceOrigem];
+                    matriz[i, indiceOrigem] = matriz[i, indiceDestino];
+                    matriz[i, indiceDestino] = aux;
+                }
             }
 
-            for (int i = 0; i < QuantidadeDeVertices(); i++)
-            {
-                double aux = matriz[indiceOrigem, i];
-                matriz[indiceOrigem, i] = matriz[indiceDestino, i];
-                matriz[indiceDestino, i] = aux;
-            }
-        }
-        public void SubstituirOPeso(double peso, int origem, int destino)
-        {
-            int indiceOrigem = origem - 1;
-            int indiceDestino = destino - 1;
-            if (!IsArestaExistente(indiceOrigem, indiceDestino))
-            {
-                throw new ArgumentException("Não a aresta compativel com a informada! ");
-            }
-            matriz[indiceOrigem, indiceDestino] = peso;
         }
 
         public double obterPeso(int origem, int destino)

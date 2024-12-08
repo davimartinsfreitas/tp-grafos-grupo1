@@ -16,19 +16,6 @@ namespace tp_grafos.RepresentacaoGrafos
             }
         }
         
-        public void SubstituirOPeso(double peso, int origem, int destino)
-        {
-            int IndiceDestino = destino -1;
-            int IndiceOrigem = origem -1;  
-            if(!IsArestaExistente(origem,destino))
-            {
-                throw new ArgumentException("Não há essa aresta no grafo");
-            }
-            int index = lista[IndiceOrigem].FindIndex(x => x.Item1 == IndiceDestino);
-            var novoItem = (IndiceDestino, peso);
-            lista[IndiceOrigem][index] = novoItem;
-        }
-
         public void trocarVertice(int v1, int v2)
         {
             int indiceOrigem = v1 - 1;
@@ -38,32 +25,42 @@ namespace tp_grafos.RepresentacaoGrafos
                 throw new ArgumentException("Não há esse vertice no grafo! ");
             }
 
+            List<(int, double)> alterados = new List<(int, double)>();
+           
+            for(int i = 0; i < lista.Values.Count; i++)
+            {
+                var result = lista.Values.ToList()[i];
+
+                if(i != indiceDestino)
+                {
+                    int index = result.FindIndex(x => x.Item1 == indiceOrigem);
+                    if (index != -1)
+                    {
+                        var novoItem = (indiceDestino, result[index].Item2);
+                        result[index] = novoItem;
+                        alterados.Add(novoItem);
+                    }
+                }
+            }
+           
+            for(int i = 0; i < lista.Values.Count; i++)
+            {
+                var result = lista.Values.ToList()[i];
+
+                if(i != indiceOrigem)
+                {
+                    int index = result.FindIndex(x => x.Item1 == indiceDestino);
+                    if (index != -1 && !alterados.Contains(result[index]))
+                    {
+                        var novoItem = (indiceOrigem, result[index].Item2);
+                        result[index] = novoItem;
+                    }
+                }
+            }
+
             var aux = lista[indiceOrigem];
             lista[indiceOrigem] = lista[indiceDestino];
             lista[indiceDestino] = aux;
-
-            
-            List<(int, double)> alterados = new List<(int, double)>();
-            foreach (var result in lista.Values)
-            {
-                int index = result.FindIndex(x => x.Item1 == indiceOrigem);
-                if (index != -1)
-                {
-                    var novoItem = (indiceDestino, result[index].Item2);
-                    result[index] = novoItem;
-                    alterados.Add(novoItem);
-                }
-            }
-            foreach (var result in lista.Values)
-            {
-                int index = result.FindIndex(x => x.Item1 == indiceDestino);
-                if (index != -1 && !alterados.Contains(result[index]))
-                {
-                    var novoItem = (indiceOrigem, result[index].Item2);
-                    result[index] = novoItem;
-                }
-            }
-
         }
 
         public void SubstituirOPeso(double peso, int origem, int destino)
@@ -110,7 +107,7 @@ namespace tp_grafos.RepresentacaoGrafos
                 Console.Write($"{vertice.Key+1}: ");
                 foreach (var aresta in vertice.Value)
                 {
-                    Console.Write($"({aresta.Item1+1}, {aresta.Item2}) ");
+                    Console.Write($"(vértice:{aresta.Item1+1}, peso:{aresta.Item2}) ");
                 }
                 Console.WriteLine();
             }
