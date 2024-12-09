@@ -24,7 +24,7 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
             tempoDeTermino = new int[grafos.QuantidadeDeVertices()];
             predecessor = new int[grafos.QuantidadeDeVertices()];
             tempoGlobal = 0;
-            representacaoArvore = new StringBuilder("\nRepresentação Árvore de Busca:");
+            representacaoArvore = new StringBuilder("\nÁrvore de Busca:\n");
         }
 
         public int GetVerticeInicial()

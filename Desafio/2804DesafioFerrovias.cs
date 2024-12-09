@@ -33,8 +33,14 @@ namespace tp_grafos.RepresentacaoGrafos
                     {
                         matrizModificada = true;
                     }
+                }
+            }
 
-                    if(!matrizModificada)
+            if (!matrizModificada)
+            {
+                for (int k = 0; k < numCidades && !matrizModificada; k++)
+                {
+                    for (int j = 0; j < numCidades && !matrizModificada; j++)
                     {
                         for (int i = 0; i < numCidades && !matrizModificada; i++)
                         {

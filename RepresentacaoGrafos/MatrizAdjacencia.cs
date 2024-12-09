@@ -17,7 +17,7 @@ namespace tp_grafos.RepresentacaoGrafos
             {
                 for (int j = 0; j < QuantidadeDeVertices(); j++)
                 {
-                    if (this.matriz[i, j] > 0)
+                    if (this.matriz[i, j] != 0)
                     {
                         matrizClone[i, j] = matriz[i, j];
                     }
@@ -116,20 +116,25 @@ namespace tp_grafos.RepresentacaoGrafos
                 {
                     arestasAdjacentes += $"({origem},{i + 1},{matriz[origemAux, i]})\n";
                 }
-                else if (matriz[i, origemAux] > 0)
+                if (matriz[i, origemAux] > 0)
                 {
                     arestasAdjacentes += $"({i + 1},{origem},{matriz[i, origemAux]})\n";
                 }
-                else if (i != origemAux && matriz[i, destinoAux] > 0)
+            }
+
+            for(int i = 0; i < tamanho; i++)
+            {
+                if (i != origemAux && matriz[i, destinoAux] > 0)
                 {
                     arestasAdjacentes += $"({i + 1},{destino},{matriz[i, destinoAux]})\n";
                 }
-                else if (matriz[destinoAux, i] > 0)
+                if (i!= origemAux && matriz[destinoAux, i] > 0)
                 {
-
                     arestasAdjacentes += $"({destino},{i + 1},{matriz[destinoAux, i]})\n";
                 }
             }
+
+
             return arestasAdjacentes;
         }
 
