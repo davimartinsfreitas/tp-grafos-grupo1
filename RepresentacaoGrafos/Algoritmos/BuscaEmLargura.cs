@@ -33,8 +33,6 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
             }
 
             int indiceInicio = inicio - 1;
-
-            int indiceInicio = inicio - 1;
             _fila.Enqueue(indiceInicio);
             _visitados[indiceInicio] = true;
 
@@ -51,7 +49,6 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
                 vizinhos.OrderBy(x => x);
                 foreach (var vizinho in vizinhos)
                 {
-             
                     _resultado.Add(atual + 1);
 
                     Console.WriteLine($"Processando vértice: {atual + 1}");
