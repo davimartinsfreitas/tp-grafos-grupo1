@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.Intrinsics.X86;
+using System.Text;
 
 namespace tp_grafos.RepresentacaoGrafos.Algoritmos
 {
@@ -47,11 +48,13 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
                 double menor = double.MaxValue;
                 int menorIndice = -1;
 
-                if (explorados[i] == false && distancia[i] <= menor)
+                for (int v = 0; v < n; v++)
                 {
-                    menor = distancia[i];
-
-                    menorIndice = i;
+                    if (explorados[v] == false && distancia[v] <= menor)
+                    {
+                        menor = distancia[v];
+                        menorIndice = v;
+                    }
                 }
 
                 explorados[menorIndice] = true;
@@ -76,7 +79,7 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
             int atual = indiceDestino;
             while (atual != raiz-1)
             {
-                rota.Add(atual);
+                rota.Add(atual+1);
 
                 int aux = atual;
 
@@ -84,6 +87,7 @@ namespace tp_grafos.RepresentacaoGrafos.Algoritmos
 
                 pesos.Add(representacaoGrafos.obterPeso(atual, aux));
             }
+
             rota.Reverse();
             pesos.Reverse();
 

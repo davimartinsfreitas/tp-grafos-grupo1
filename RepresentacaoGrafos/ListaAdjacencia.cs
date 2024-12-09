@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 
 namespace tp_grafos.RepresentacaoGrafos
@@ -25,37 +26,34 @@ namespace tp_grafos.RepresentacaoGrafos
                 throw new ArgumentException("Não há esse vertice no grafo! ");
             }
 
-            List<(int, double)> alterados = new List<(int, double)>();
-           
-            for(int i = 0; i < lista.Values.Count; i++)
+            foreach(int vertice in lista.Keys)
             {
-                var result = lista.Values.ToList()[i];
+               int indexOrigem = lista[vertice].FindIndex(x => x.Item1 == indiceOrigem);
 
-                if(i != indiceDestino)
-                {
-                    int index = result.FindIndex(x => x.Item1 == indiceOrigem);
-                    if (index != -1)
-                    {
-                        var novoItem = (indiceDestino, result[index].Item2);
-                        result[index] = novoItem;
-                        alterados.Add(novoItem);
-                    }
-                }
-            }
-           
-            for(int i = 0; i < lista.Values.Count; i++)
-            {
-                var result = lista.Values.ToList()[i];
+               (int, double) novoValorOrigem = (0,0.0);
+               (int, double) novoValorDestino = (0,0.0);
 
-                if(i != indiceOrigem)
-                {
-                    int index = result.FindIndex(x => x.Item1 == indiceDestino);
-                    if (index != -1 && !alterados.Contains(result[index]))
-                    {
-                        var novoItem = (indiceOrigem, result[index].Item2);
-                        result[index] = novoItem;
-                    }
-                }
+               if(indexOrigem != -1)
+               {
+                  novoValorOrigem = (indiceDestino, lista[vertice][indexOrigem].Item2);
+               }
+
+               int indexDestino = lista[vertice].FindIndex(x => x.Item1 == indiceDestino);
+                
+               if (indexDestino != -1)
+               {
+                   novoValorDestino = (indiceOrigem, lista[vertice][indexDestino].Item2);
+               }
+
+               if(novoValorOrigem != (0,0))
+               {
+                  lista[vertice][indexOrigem] = novoValorOrigem;
+               }
+
+               if(novoValorDestino != (0,0))
+               {
+                  lista[vertice][indexDestino] = novoValorDestino;
+               }
             }
 
             var aux = lista[indiceOrigem];
@@ -163,7 +161,7 @@ namespace tp_grafos.RepresentacaoGrafos
             StringBuilder predecessores = new StringBuilder("Predecessores:\n");
             foreach (KeyValuePair<int, List<(int, double)>> adjacencias in lista)
             {
-                if (adjacencias.Value.Any(adjacencia => adjacencia.Item1 == vertice))
+                if (adjacencias.Value.Any(adjacencia => adjacencia.Item1 == indiceVertice))
                     predecessores.AppendLine( (adjacencias.Key+1).ToString() );
             }
 
